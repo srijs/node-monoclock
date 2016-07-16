@@ -1,0 +1,21 @@
+{
+  "name": "monoclock",
+  "version": "0.1.0",
+  "description": "Monotonic Clock",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:srijs/node-monoclock.git"
+  },
+  "keywords": [
+    "monotonic",
+    "clock",
+    "time"
+  ],
+  "author": "Sam Rijs",
+  "license": "MIT",
+  "typings": "./index.d.ts",
+  "dependencies": {
+    "nan": "^2.4.0"
+  }
+}
