@@ -2,7 +2,7 @@
 #include <nan.h>
 
 #include <time.h>
-#ifdef __MACH__
+#if defined(__MACH__) && defined(__APPLE__)
   #include <mach/clock.h>
   #include <mach/mach.h>
 #endif
@@ -33,7 +33,7 @@ using Nan::Utf8String;
 NAN_METHOD(GetTime) {
   int ret;
   struct timespec ts;
-  #ifdef __MACH__
+  #if defined(__MACH__) && defined(__APPLE__)
     clock_serv_t cclock;
     mach_timespec_t mts;
     host_get_clock_service(mach_host_self(), SYSTEM_CLOCK, &cclock);
