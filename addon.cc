@@ -49,12 +49,18 @@ NAN_METHOD(GetTime) {
     return Nan::ThrowError(Nan::ErrnoException(errno));
   }
 
-  uint32_t msec = static_cast<uint32_t>(ts.tv_sec * 1000 + (ts.tv_nsec / 1000 / 1000));
-  uint32_t nsec = static_cast<uint32_t>(ts.tv_nsec - ((ts.tv_nsec / 1000 / 1000) * 1000 * 1000));
+  uint32_t sec = static_cast<uint32_t>(ts.tv_sec);
+  uint32_t msec = static_cast<uint32_t>(ts.tv_nsec / 1000 / 1000);
+  uint32_t usec = static_cast<uint32_t>(ts.tv_nsec / 1000 - (ts.tv_nsec / 1000 / 1000) * 1000);
+  uint32_t nsec = static_cast<uint32_t>(ts.tv_nsec % 1000);
 
   Local<Object> obj = Nan::New<Object>();
+  Nan::Set(obj, Nan::New<String>("sec").ToLocalChecked(),
+    Nan::New<Number>(sec));
   Nan::Set(obj, Nan::New<String>("msec").ToLocalChecked(),
     Nan::New<Number>(msec));
+  Nan::Set(obj, Nan::New<String>("usec").ToLocalChecked(),
+    Nan::New<Number>(usec));
   Nan::Set(obj, Nan::New<String>("nsec").ToLocalChecked(),
     Nan::New<Number>(nsec));
   info.GetReturnValue().Set(obj);
