@@ -1,1 +1,1 @@
-export function getTime(): {msec: number, nsec: number};
+export function getTime(): {sec: number, nsec: number};
