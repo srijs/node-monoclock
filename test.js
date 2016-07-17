@@ -29,6 +29,7 @@ function isMonotonicStep(left, right) {
 let prev = monoclock.getTime();
 for (let i = 0; i < 100; i++) {
   const time = monoclock.getTime();
+  console.log(time);
   assert(isMonotonicStep(prev, time), `non-monotonic step between ${JSON.stringify(prev)} and ${JSON.stringify(time)}`);
   prev = time;
 }
