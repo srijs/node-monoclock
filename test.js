@@ -9,18 +9,8 @@ function isMonotonicStep(left, right) {
     return true;
   }
   if (left.sec === right.sec) {
-    if (left.msec < right.msec) {
+    if (left.nsec < right.nsec) {
       return true;
-    }
-    if (left.msec === right.msec) {
-      if (left.usec < right.usec) {
-        return true;
-      }
-      if (left.usec === right.usec) {
-        if (left.nsec < right.nsec) {
-          return true;
-        }
-      }
     }
   }
   return false;
