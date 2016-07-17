@@ -14,5 +14,5 @@ npm install monoclock
 import * as monoclock from 'monoclock';
 
 monoclock.getTime();
-// { msec: 54473117, nsec: 841400 }
+// { sec: 20243, nsec: 723136835 }
 ```
