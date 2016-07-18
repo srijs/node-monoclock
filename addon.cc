@@ -1,11 +1,7 @@
 #include <node.h>
 #include <nan.h>
 
-#include <time.h>
-#if defined(__MACH__) && defined(__APPLE__)
-  #include <mach/clock.h>
-  #include <mach/mach.h>
-#endif
+#include <chrono>
 
 using v8::Exception;
 using v8::Function;
@@ -31,26 +27,11 @@ using Nan::Undefined;
 using Nan::Utf8String;
 
 NAN_METHOD(GetTime) {
-  int ret;
-  struct timespec ts;
-  #if defined(__MACH__) && defined(__APPLE__)
-    clock_serv_t cclock;
-    mach_timespec_t mts;
-    host_get_clock_service(mach_host_self(), SYSTEM_CLOCK, &cclock);
-    ret = clock_get_time(cclock, &mts);
-    mach_port_deallocate(mach_task_self(), cclock);
-    ts.tv_sec = mts.tv_sec;
-    ts.tv_nsec = mts.tv_nsec;
-  #else
-    ret = clock_gettime(CLOCK_MONOTONIC, &ts);
-  #endif
+  auto now = std::chrono::steady_clock::now();
+  auto since = now.time_since_epoch();
 
-  if (ret != 0) {
-    return Nan::ThrowError(Nan::ErrnoException(errno));
-  }
-
-  uint32_t sec = static_cast<uint32_t>(ts.tv_sec);
-  uint32_t nsec = static_cast<uint32_t>(ts.tv_nsec);
+  uint32_t sec =  std::chrono::duration_cast<std::chrono::seconds>(since).count();
+  uint32_t nsec = std::chrono::duration_cast<std::chrono::nanoseconds>(since).count() - sec * 1000 * 1000 * 1000;
 
   Local<Object> obj = Nan::New<Object>();
   Nan::Set(obj, Nan::New<String>("sec").ToLocalChecked(),
