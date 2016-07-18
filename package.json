@@ -1,6 +1,6 @@
 {
   "name": "monoclock",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Cross-platform Monotonic Clock for Linux, OS X and Windows",
   "main": "index.js",
   "scripts": {
