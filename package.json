@@ -1,6 +1,6 @@
 {
   "name": "monoclock",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Monotonic Clock",
   "main": "index.js",
   "scripts": {
