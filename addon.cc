@@ -31,7 +31,7 @@ NAN_METHOD(GetTime) {
   auto since = now.time_since_epoch();
 
   uint32_t sec =  std::chrono::duration_cast<std::chrono::seconds>(since).count();
-  uint32_t nsec = std::chrono::duration_cast<std::chrono::nanoseconds>(since).count() - sec * 1000 * 1000 * 1000;
+  uint32_t nsec = std::chrono::duration_cast<std::chrono::nanoseconds>(since).count() % (1000 * 1000 * 1000);
 
   Local<Object> obj = Nan::New<Object>();
   Nan::Set(obj, Nan::New<String>("sec").ToLocalChecked(),
